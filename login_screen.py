@@ -3,6 +3,7 @@ from tkinter import messagebox
 import sqlite3
 from selectionscreen import mode_screen  # Importiere den Auswahlmodus-Bildschirm
 
+
 # Login-Funktion
 def login(start_game_callback):
     username = entry_username.get()
@@ -12,7 +13,10 @@ def login(start_game_callback):
     con = sqlite3.connect("./Database/database.db")
     cursor = con.cursor()
 
-    cursor.execute("SELECT * FROM Player WHERE Playername = ? AND playerPassword = ?", (username, password))
+    cursor.execute(
+        "SELECT * FROM Player WHERE Playername = ? AND playerPassword = ?",
+        (username, password),
+    )
     user = cursor.fetchone()
     con.close()
 
@@ -22,11 +26,13 @@ def login(start_game_callback):
     else:
         messagebox.showerror("Fehler", "Falscher Benutzername oder Passwort.")
 
+
 # Funktion, um den Auswahlmodus zu öffnen
 def open_selection_screen():
     # Öffnet die Mode Selection GUI
     login_screen_window.destroy()  # Schließt das Login-Fenster
     mode_screen()  # Öffnet die Auswahlmodus-GUI
+
 
 # Login-GUI
 def login_screen(start_game_callback):
@@ -48,20 +54,37 @@ def login_screen(start_game_callback):
 
     # Frame zum vollständigen Zentrieren
     frame = tk.Frame(login_screen_window, bg="#2e2e2e")
-    frame.place(relx=0.5, rely=0.5, anchor="center")  # Frame exakt in der Mitte platzieren
+    frame.place(
+        relx=0.5, rely=0.5, anchor="center"
+    )  # Frame exakt in der Mitte platzieren
 
     # Benutzername
-    tk.Label(frame, text="Benutzername:", font=label_font, fg="white", bg="#2e2e2e").pack(pady=5)
+    tk.Label(
+        frame, text="Benutzername:", font=label_font, fg="white", bg="#2e2e2e"
+    ).pack(pady=5)
     entry_username = tk.Entry(frame, font=label_font, bg=entry_bg, fg=entry_fg)
     entry_username.pack(pady=5)
 
     # Passwort
-    tk.Label(frame, text="Passwort:", font=label_font, fg="white", bg="#2e2e2e").pack(pady=5)
-    entry_password = tk.Entry(frame, font=label_font, bg=entry_bg, fg=entry_fg, show="*")
+    tk.Label(frame, text="Passwort:", font=label_font, fg="white", bg="#2e2e2e").pack(
+        pady=5
+    )
+    entry_password = tk.Entry(
+        frame, font=label_font, bg=entry_bg, fg=entry_fg, show="*"
+    )
     entry_password.pack(pady=5)
 
     # Login-Button
-    btn_login = tk.Button(frame, text="Login", font=label_font, bg=btn_bg, fg=btn_fg, relief="flat", bd=btn_border_width, command=lambda: login(start_game_callback))
+    btn_login = tk.Button(
+        frame,
+        text="Login",
+        font=label_font,
+        bg=btn_bg,
+        fg=btn_fg,
+        relief="flat",
+        bd=btn_border_width,
+        command=lambda: login(start_game_callback),
+    )
     btn_login.pack(pady=10, ipadx=20, ipady=10)
 
     # Button Hover-Effekt
