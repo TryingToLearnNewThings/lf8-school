@@ -6,17 +6,7 @@ cursor = con.cursor()
 
 class Player:
 
-    def __init__(
-        self,
-        name: str,
-        player_id: int,
-        player_password,
-        wins,
-        score,
-        correctHardQuestions,
-        correctMediumQuestions,
-        correctEasyQuestions,
-    ):
+    def __init__(self,name: str,player_id: int,player_password,wins,score,correctHardQuestions,correctMediumQuestions,correctEasyQuestions,):
         self.name = name
         self.player_id = player_id
         self.password = player_password
