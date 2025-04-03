@@ -63,4 +63,4 @@ jobs:
           body: "This PR contains automatic formatting changes made by Black."
           branch: black-auto-format
           base: main
-          delete-branch: true
+          # delete-branch: true
