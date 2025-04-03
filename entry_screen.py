@@ -38,7 +38,13 @@ inner_frame = tk.Frame(frame, bg="#2e2e2e")
 inner_frame.place(relx=0.5, rely=0.5, anchor="center")
 
 # Titel-Label
-tk.Label(inner_frame,text="Willkommen zum Quiz-Game",font=label_font,fg="white",bg="#2e2e2e",).pack(pady=20)
+tk.Label(
+    inner_frame,
+    text="Willkommen zum Quiz-Game",
+    font=label_font,
+    fg="white",
+    bg="#2e2e2e",
+).pack(pady=20)
 
 # Spielen-Button
 btn_play = tk.Button(
