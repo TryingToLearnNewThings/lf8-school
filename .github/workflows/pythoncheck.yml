@@ -46,7 +46,7 @@ jobs:
             echo "SKIP=false" >> $GITHUB_ENV
           fi
 
-      - name: Create and switch to a new branch
+      - name: Create, Switch & Push to a new branch
         env:  # This ensures the variable is properly recognized
           SKIP: ${{ env.skip }}
         if: env.SKIP != 'true'
@@ -67,5 +67,4 @@ jobs:
           title: "Auto-format code with Black"
           body: "This PR contains automatic formatting changes made by Black."
           branch: black-auto-format
-          base: main
           delete-branch: true  # Auto-delete after merging
