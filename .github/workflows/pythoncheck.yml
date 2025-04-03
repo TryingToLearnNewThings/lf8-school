@@ -32,8 +32,31 @@ jobs:
       - name: Run Pylint Linter
         run: pylint $(git ls-files '*.py')
 
-      - name: Commit formatted code
+      - name: Check for formatting changes
         run: |
-          git config --global user.name "github-actions"
-          git config --global user.email "github-actions@github.com"
-          git diff --quiet || (git add . && git commit -m "Auto-format code using Black" && git push)
+          if git diff --exit-code; then
+            echo "No changes made by Black."
+            exit 0
+          else
+            echo "Changes detected. Proceeding to create a pull request."
+          fi
+
+      - name: Create and switch to a new branch
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git checkout -b black-auto-format
+          git add .
+          git commit -m "Auto-format code with Black"
+
+      - name: Push changes to new branch
+        run: git push origin black-auto-format --force
+
+      - name: Create Pull Request
+        uses: peter-evans/create-pull-request@v6
+        with:
+          title: "Auto-format code with Black"
+          body: "This PR contains automatic formatting changes made by Black."
+          branch: black-auto-format
+          base: main
+          delete-branch: true  # Delete branch after merging
