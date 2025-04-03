@@ -67,4 +67,7 @@ jobs:
           title: "Auto-format code with Black"
           body: "This PR contains automatic formatting changes made by Black."
           branch: black-auto-format
-          delete-branch: true  # Auto-delete after merging
+          base: main
+          delete-branch: false  # Auto-delete after merging
+          labels: "auto-format"
+          draft: false
