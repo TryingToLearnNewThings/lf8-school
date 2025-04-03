@@ -15,6 +15,8 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0 # Ensures full history for diff checks
 
       - name: Set up Python
         uses: actions/setup-python@v5
@@ -27,7 +29,10 @@ jobs:
           pip install -r requirements.txt
 
       - name: Run Black Formatter
-        run: black --line-length 88 .
+        run: |
+          black --line-length 88 .
+          git status # For Debugging
+
 
       - name: Run Pylint Linter
         run: pylint $(git ls-files '*.py')
@@ -36,12 +41,12 @@ jobs:
         id: check_diff
         run: |
           if git diff --quiet; then
-            echo "skip=true" >> $GITHUB_ENV  # Set env variable for later steps
+            echo "SKIP=true" >> $GITHUB_ENV
           else
-            echo "skip=false" >> $GITHUB_ENV
+            echo "SKIP=false" >> $GITHUB_ENV
           fi
 
-      - name: Create, Switch & Push to a new branch
+      - name: Create and switch to a new branch
         env:  # This ensures the variable is properly recognized
           SKIP: ${{ env.skip }}
         if: env.SKIP != 'true'
@@ -49,12 +54,12 @@ jobs:
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
           git checkout -b black-auto-format
-          git add .
+          git add .  
           git commit -m "Auto-format code with Black"
           git push origin black-auto-format --force
 
       - name: Create Pull Request
-        env:
+        env:  # This ensures the variable is properly recognized
           SKIP: ${{ env.skip }}
         if: env.SKIP != 'true'
         uses: peter-evans/create-pull-request@v6
@@ -63,3 +68,4 @@ jobs:
           body: "This PR contains automatic formatting changes made by Black."
           branch: black-auto-format
           base: main
+          delete-branch: true  # Auto-delete after merging
