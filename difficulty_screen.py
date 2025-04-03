@@ -1,5 +1,6 @@
 import tkinter as tk
 
+
 def difficulty_screen():
     # Neues Fenster für die Schwierigkeitseinstellung
     root = tk.Tk()
@@ -20,7 +21,13 @@ def difficulty_screen():
     frame.place(relx=0.5, rely=0.5, anchor="center")
 
     # Schwierigkeit-Auswahl Label
-    tk.Label(frame, text="Wählen Sie die Schwierigkeit", font=label_font, fg="white", bg="#2e2e2e").pack(pady=20)
+    tk.Label(
+        frame,
+        text="Wählen Sie die Schwierigkeit",
+        font=label_font,
+        fg="white",
+        bg="#2e2e2e",
+    ).pack(pady=20)
 
     # Button-Style anpassen und Buttons für Schwierigkeit hinzufügen
     def on_enter(event, button):
@@ -29,17 +36,41 @@ def difficulty_screen():
     def on_leave(event, button):
         button.config(bg=btn_bg)
 
-    btn_easy = tk.Button(frame, text="Leicht", font=btn_font, bg=btn_bg, fg=btn_fg, relief="flat", bd=btn_border_width)
+    btn_easy = tk.Button(
+        frame,
+        text="Leicht",
+        font=btn_font,
+        bg=btn_bg,
+        fg=btn_fg,
+        relief="flat",
+        bd=btn_border_width,
+    )
     btn_easy.pack(pady=15, ipadx=10, ipady=10, fill="x")
     btn_easy.bind("<Enter>", lambda event, button=btn_easy: on_enter(event, button))
     btn_easy.bind("<Leave>", lambda event, button=btn_easy: on_leave(event, button))
 
-    btn_medium = tk.Button(frame, text="Mittel", font=btn_font, bg=btn_bg, fg=btn_fg, relief="flat", bd=btn_border_width)
+    btn_medium = tk.Button(
+        frame,
+        text="Mittel",
+        font=btn_font,
+        bg=btn_bg,
+        fg=btn_fg,
+        relief="flat",
+        bd=btn_border_width,
+    )
     btn_medium.pack(pady=15, ipadx=10, ipady=10, fill="x")
     btn_medium.bind("<Enter>", lambda event, button=btn_medium: on_enter(event, button))
     btn_medium.bind("<Leave>", lambda event, button=btn_medium: on_leave(event, button))
 
-    btn_hard = tk.Button(frame, text="Schwer", font=btn_font, bg=btn_bg, fg=btn_fg, relief="flat", bd=btn_border_width)
+    btn_hard = tk.Button(
+        frame,
+        text="Schwer",
+        font=btn_font,
+        bg=btn_bg,
+        fg=btn_fg,
+        relief="flat",
+        bd=btn_border_width,
+    )
     btn_hard.pack(pady=15, ipadx=10, ipady=10, fill="x")
     btn_hard.bind("<Enter>", lambda event, button=btn_hard: on_enter(event, button))
     btn_hard.bind("<Leave>", lambda event, button=btn_hard: on_leave(event, button))
