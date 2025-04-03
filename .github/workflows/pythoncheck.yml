@@ -31,8 +31,6 @@ jobs:
       - name: Run Black Formatter
         run: |
           black --line-length 88 .
-          git status # For Debugging
-
 
       - name: Run Pylint Linter
         run: pylint $(git ls-files '*.py')
@@ -66,8 +64,8 @@ jobs:
         with:
           title: "Auto-format code with Black"
           body: "This PR contains automatic formatting changes made by Black."
-          branch: black-auto-format
-          base: main
+          branch: main
+          base: black-auto-format
           delete-branch: false  # Auto-delete after merging
           labels: "auto-format"
           draft: false
