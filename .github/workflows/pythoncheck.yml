@@ -45,20 +45,16 @@ jobs:
           fi
 
       - name: Create, Switch & Push to a new branch
-        env:  # This ensures the variable is properly recognized
-          SKIP: ${{ env.SKIP }}
         if: env.SKIP != 'true'
         run: |
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
-          git checkout -b black-auto-format
+          git checkout black-auto-format || git checkout -b black-auto-format
           git add .  
           git commit -m "Auto-format code with Black" || echo "No changes to commit"
           git push origin black-auto-format --force
 
       - name: Create Pull Request
-        env:  # This ensures the variable is properly recognized
-          SKIP: ${{ env.SKIP }}
         if: env.SKIP != 'true'
         uses: peter-evans/create-pull-request@v6
         with:
