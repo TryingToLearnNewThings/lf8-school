@@ -68,4 +68,4 @@ jobs:
           base: black-auto-format
           delete-branch: false  # Auto-delete after merging
           labels: "auto-format"
-          draft: false
+          draft: true
