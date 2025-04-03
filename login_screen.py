@@ -13,7 +13,10 @@ def login(start_game_callback):
     con = sqlite3.connect("./Database/database.db")
     cursor = con.cursor()
 
-    cursor.execute("SELECT * FROM Player WHERE Playername = ? AND playerPassword = ?",(username, password),)
+    cursor.execute(
+        "SELECT * FROM Player WHERE Playername = ? AND playerPassword = ?",
+        (username, password),
+    )
     user = cursor.fetchone()
     con.close()
 
@@ -72,7 +75,15 @@ def login_screen(start_game_callback):
     entry_password.pack(pady=5)
 
     # Login-Button
-    btn_login = tk.Button(frame,text="Login",font=label_font,bg=btn_bg,fg=btn_fg,relief="flat",bd=btn_border_width,command=lambda: login(start_game_callback),
+    btn_login = tk.Button(
+        frame,
+        text="Login",
+        font=label_font,
+        bg=btn_bg,
+        fg=btn_fg,
+        relief="flat",
+        bd=btn_border_width,
+        command=lambda: login(start_game_callback),
     )
     btn_login.pack(pady=10, ipadx=20, ipady=10)
 
@@ -80,12 +91,8 @@ def login_screen(start_game_callback):
     def on_enter(event, button):
         button.config(bg=btn_hover_bg)
 
-
-
     def on_leave(event, button):
         button.config(bg=btn_bg)
-
-
 
     btn_login.bind("<Enter>", lambda event, button=btn_login: on_enter(event, button))
     btn_login.bind("<Leave>", lambda event, button=btn_login: on_leave(event, button))
