@@ -33,30 +33,34 @@ jobs:
         run: pylint $(git ls-files '*.py')
 
       - name: Check for formatting changes
+        id: check_diff
         run: |
-          if git diff --exit-code; then
-            echo "No changes made by Black."
-            exit 0
+          if git diff --quiet; then
+            echo "skip=true" >> $GITHUB_ENV  # Set env variable for later steps
           else
-            echo "Changes detected. Proceeding to create a pull request."
+            echo "skip=false" >> $GITHUB_ENV
           fi
 
-      - name: Create and switch to a new branch
+      - name: Create, Switch & Push to a new branch
+        env:  # This ensures the variable is properly recognized
+          SKIP: ${{ env.skip }}
+        if: env.SKIP != 'true'
         run: |
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
-          git checkout -b black-auto-formatter
+          git checkout -b black-auto-format
           git add .
           git commit -m "Auto-format code with Black"
-
-      - name: Push changes to new branch
-        run: git push origin black-auto-format --force
+          git push origin black-auto-format --force
 
       - name: Create Pull Request
+        env:
+          SKIP: ${{ env.skip }}
+        if: env.SKIP != 'true'
         uses: peter-evans/create-pull-request@v6
         with:
           title: "Auto-format code with Black"
           body: "This PR contains automatic formatting changes made by Black."
           branch: black-auto-format
           base: main
-          delete-branch: true  # Delete branch after merging
+          delete-branch: true
