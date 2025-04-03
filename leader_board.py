@@ -7,12 +7,9 @@ class leaderBoard:
         # SQL Abfrage zur Tabelle Player of Game
         return
 
-    def get_points(self):
+    def get_points(self):return
 
-        return
-
-    def ranking(self):
-        return
+    def ranking(self):return
 
     def get_winner(self):
         return

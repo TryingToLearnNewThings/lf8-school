@@ -11,8 +11,7 @@ def start_game():
 def open_login():
     main_screen.destroy()  # Zerstöre die Startseite
     login_screen(
-        start_game
-    )  # Übergibt start_game an die Login-GUI, damit sie nach Login ausgeführt wird
+    start_game)  # Übergibt start_game an die Login-GUI, damit sie nach Login ausgeführt wird
 
 
 # Hauptbildschirm (Entry Screen)
