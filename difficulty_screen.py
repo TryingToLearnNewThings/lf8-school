@@ -36,7 +36,15 @@ def difficulty_screen():
     def on_leave(event, button):
         button.config(bg=btn_bg)
 
-    btn_easy = tk.Button(frame,text="Leicht",font=btn_font,bg=btn_bg,fg=btn_fg,relief="flat",bd=btn_border_width,)
+    btn_easy = tk.Button(
+        frame,
+        text="Leicht",
+        font=btn_font,
+        bg=btn_bg,
+        fg=btn_fg,
+        relief="flat",
+        bd=btn_border_width,
+    )
     btn_easy.pack(pady=15, ipadx=10, ipady=10, fill="x")
     btn_easy.bind("<Enter>", lambda event, button=btn_easy: on_enter(event, button))
     btn_easy.bind("<Leave>", lambda event, button=btn_easy: on_leave(event, button))
