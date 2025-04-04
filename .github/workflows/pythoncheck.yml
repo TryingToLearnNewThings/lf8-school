@@ -44,14 +44,15 @@ jobs:
             echo "SKIP=false" >> $GITHUB_ENV
           fi
 
-      - name: Create, Switch & Push to a new branch
+      - name: Create and Push to a New Branch for Formatting
         if: env.SKIP != 'true'
         run: |
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
-          git checkout black-auto-format || git checkout -b black-auto-format
-          git add .  
-          git commit -m "Auto-format code with Black" || echo "No changes to commit"
+          git fetch origin main
+          git checkout -B black-auto-format origin/main  # Always base on latest main
+          git add .
+          git diff --quiet && echo "No changes to commit" || git commit -m "Auto-format code with Black"
           git push origin black-auto-format --force
 
       - name: Create Pull Request
