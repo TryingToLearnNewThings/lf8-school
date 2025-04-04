@@ -35,6 +35,10 @@ jobs:
       - name: Run Pylint Linter
         run: pylint $(git ls-files '*.py')
 
+      - name: Run Tests
+        run: |
+          python -m unittest discover tests/  
+  
       - name: Check for formatting changes
         id: check_diff
         run: |
@@ -63,6 +67,5 @@ jobs:
           body: "This PR contains automatic formatting changes made by Black."
           branch: black-auto-format
           base: main
-          # delete-branch: true  # Auto-delete after merging
           labels: "auto-format"
           draft: false
