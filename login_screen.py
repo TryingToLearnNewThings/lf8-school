@@ -75,7 +75,16 @@ def login_screen(start_game_callback):
     entry_password.pack(pady=5)
 
     # Login-Button
-    btn_login = tk.Button(frame,text="Login",font=label_font,bg=btn_bg,fg=btn_fg,relief="flat",bd=btn_border_width,command=lambda: login(start_game_callback),)
+    btn_login = tk.Button(
+        frame,
+        text="Login",
+        font=label_font,
+        bg=btn_bg,
+        fg=btn_fg,
+        relief="flat",
+        bd=btn_border_width,
+        command=lambda: login(start_game_callback),
+    )
     btn_login.pack(pady=10, ipadx=20, ipady=10)
 
     # Button Hover-Effekt
