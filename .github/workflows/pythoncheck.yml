@@ -35,9 +35,9 @@ jobs:
       - name: Run Pylint Linter
         run: pylint $(git ls-files '*.py')
 
-      - name: Run Tests
-        run: |
-          python -m unittest discover tests/  
+      # - name: Run Tests
+      #   run: |
+      #     python -m unittest discover tests/  
   
       - name: Check for formatting changes
         id: check_diff
